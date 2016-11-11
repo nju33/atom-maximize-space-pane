@@ -1,0 +1,54 @@
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'Maximum Space Pane'
+      'submenu': [
+        {
+          'label': 'Maximize pane 1',
+          'command': 'Maximize Space Pane: Switch 1'
+        }
+        {
+          'label': 'Maximize pane 2',
+          'command': 'Maximize Space Pane: Switch 2'
+        }
+        {
+          'label': 'Maximize pane 3',
+          'command': 'Maximize Space Pane: Switch 3'
+        }
+        {
+          'label': 'Maximize pane 4',
+          'command': 'Maximize Space Pane: Switch 4'
+        }
+        {
+          'label': 'Maximize pane 5',
+          'command': 'Maximize Space Pane: Switch 5'
+        }
+        {
+          'label': 'Maximize pane 6',
+          'command': 'Maximize Space Pane: Switch 6'
+        }
+        {
+          'label': 'Maximize pane 6',
+          'command': 'Maximize Space Pane: Switch 6'
+        }
+        {
+          'label': 'Maximize pane 7',
+          'command': 'Maximize Space Pane: Switch 7'
+        }
+        {
+          'label': 'Maximize pane 8',
+          'command': 'Maximize Space Pane: Switch 8'
+        }
+        {
+          'label': 'Maximize pane 9',
+          'command': 'Maximize Space Pane: Switch 9'
+        }
+        {
+          'label': 'Reset',
+          'command': 'Maximize Space Pane: Reset'
+        }
+      ]
+    ]
+  }
+]

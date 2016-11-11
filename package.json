@@ -1,0 +1,14 @@
+{
+  "name": "maximize-space-pane",
+  "version": "1.0.0",
+  "description": "Maximize space a pane",
+  "main": "./lib/maximize-space-pane",
+  "repository": "https://github.com/nju33/atom-maximize-space-pane",
+  "license": "MIT",
+  "readme": "README.md",
+  "engines": {
+    "atom": "*"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

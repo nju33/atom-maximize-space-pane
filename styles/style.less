@@ -1,0 +1,32 @@
+@accentColor: #e2c08d;
+
+.atom-maximum-space-pane--reset-flex-direction {
+  flex-direction: initial !important;
+}
+
+.atom-maximum-space-pane--maximum-glow {
+  flex-grow: 99999 !important;
+}
+
+.atom-maximize-space-pane__status-box__status-bar-center {
+  position: relative;
+}
+
+.atom-maximize-space-pane__box {
+  position: absolute;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.atom-maximize-space-pane__radio {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #aaa;
+  margin: .2em;
+}
+
+.atom-maximize-space-pane__radio--active {
+  background: saturate(@accentColor, 40%);
+}

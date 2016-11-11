@@ -1,0 +1,4 @@
+describe "WebEditorView", ->
+  beforeEach ->
+
+  it "", ->
