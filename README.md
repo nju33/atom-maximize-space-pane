@@ -1,6 +1,6 @@
 # Atom Maximize Space Pane
 
-![Atom Maximize Space Pane](https://raw.github.com/nju33/atom-maximize-space-pane/master/screenshot.gif)
+![Atom Maximize Space Pane](https://github.com/nju33/atom-maximize-space-pane/blob/master/screenshot.gif?raw=true)
 
 ## Install
 
