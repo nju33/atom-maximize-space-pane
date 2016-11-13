@@ -31,35 +31,84 @@ module.exports =
         @reset() if @activePane?
 
     setTimeout =>
-      @subscription.add atom.workspace.observePanes =>
-        @statusBar = new StatusBar() unless @statusBar?
-        setTimeout =>
-          @statusBar.build @getPanes()
-        , 0
-      @subscription.add atom.workspace.onDidDestroyPane ({pane}) =>
-        return unless @statusBar.activeRadio?
-
-        setTimeout =>
-          if @statusBar.hasNextPane @activeNumber - 1
-            @switch @activeNumber
-          else
-            @switch @activeNumber - 1
-
-          @statusBar.build @getPanes()
-        , 0
+      @statusBar = new StatusBar()
+      @statusBar.build @getPanes()
     , 0
 
+    @subscription.add atom.workspace.onDidAddPane ({pane}) =>
+      setTimeout =>
+        @activeNumber = -1
+        unless pane? and @activePane? and @statusBar.activeRadio?
+          @statusBar.build @getPanes()
+          return
+
+        pane = @getPaneElement pane
+        idx = @paneIndexOf pane
+
+        if ~idx
+          @switch idx + 1
+        else
+          @reset()
+
+        @statusBar.build @getPanes()
+      , 0
+
+    @subscription.add atom.workspace.onDidDestroyPane =>
+      @activeNumber = -1
+
+    @subscription.add atom.workspace.onDidChangeActivePane (pane) =>
+      setTimeout =>
+        unless pane? and @activePane? and @statusBar.activeRadio?
+          @statusBar.build @getPanes()
+          return
+
+        @reset() if @isOnlyPane()
+
+        pane = @getPaneElement pane
+        idx = @paneIndexOf pane
+
+        if ~idx
+          @switch idx + 1
+        else
+          @reset()
+
+        @statusBar.build @getPanes()
+      , 0
+
     @activePane = null
+    @activePaneLength = null
     @activeNumber = null
 
   deactivate: ->
     @subscription.dispose()
 
+  isOnlyPane: ->
+    {panes} = @getPanes()
+    panes.length is 1
+
+  paneIndexOf: (pane) ->
+    {panes} = @getPanes()
+    found = false
+
+    for _pane, idx in panes
+      if _pane is pane
+        found = true
+        break
+
+    if found then idx else -1
+
+  getPaneElement: (item) ->
+    switch item.constructor.name
+      when 'Pane'
+        item.activeItem?.editorElement.parentElement.parentElement
+      when 'TextEditor'
+        item.editorElement.parentElement.parentElement
+
   switch: (number) ->
     return if number is @activeNumber
-    
+
     {parent, panes} = @getPanes()
-    return if panes.length < number
+    return unless number <= panes.length
 
     @reset() if @activePane?
 
@@ -93,6 +142,7 @@ module.exports =
       @activePane.style.opacity = '1'
 
     @activePane = null
+    @activeNumber = null
     @statusBar.deactivateRadio radio
 
   getPanes: do ->
