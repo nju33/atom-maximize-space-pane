@@ -100,9 +100,9 @@ module.exports =
   getPaneElement: (item) ->
     switch item.constructor.name
       when 'Pane'
-        item.activeItem?.editorElement.parentElement.parentElement
+        atom.views.getView item
       when 'TextEditor'
-        item.editorElement.parentElement.parentElement
+        atom.views.getView(item).parentElement?.parentElement
 
   switch: (number) ->
     return if number is @activeNumber
