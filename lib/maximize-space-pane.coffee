@@ -33,6 +33,8 @@ module.exports =
     setTimeout =>
       @statusBar = new StatusBar()
       @statusBar.build @getPanes()
+
+      @init = true
     , 0
 
     @subscription.add atom.workspace.onDidAddPane ({pane}) =>
@@ -75,9 +77,11 @@ module.exports =
         @statusBar.build @getPanes()
       , 0
 
+    @panes = new WeakMap()
     @activePane = null
     @activePaneLength = null
     @activeNumber = null
+    @init = false
 
   deactivate: ->
     @subscription.dispose()
@@ -85,6 +89,17 @@ module.exports =
   isOnlyPane: ->
     {panes} = @getPanes()
     panes.length is 1
+
+  paneItemIndexOf: (pane, item) ->
+    return unless pane.items
+
+    found = false
+    for _item, idx in pane.items
+      if _item is item
+        found = true
+        break
+
+    if found then idx else -1
 
   paneIndexOf: (pane) ->
     {panes} = @getPanes()
@@ -117,6 +132,9 @@ module.exports =
 
     @activeNumber = number
     pane = @activePane = panes[@activeNumber - 1]
+    paneModel = pane.getModel()
+    paneModel.activate()
+
     if (!pane.classList.contains MAXIMUM_GROW)
       pane.classList.add MAXIMUM_GROW
       # for repaint
