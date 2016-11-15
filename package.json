@@ -1,6 +1,6 @@
 {
   "name": "maximize-space-pane",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Maximise a pane space",
   "main": "./lib/maximize-space-pane",
   "repository": "https://github.com/nju33/atom-maximize-space-pane",
