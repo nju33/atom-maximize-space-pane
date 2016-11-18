@@ -40,8 +40,9 @@ module.exports =
     @subscription.add atom.workspace.onDidAddPane ({pane}) =>
       setTimeout =>
         @activeNumber = -1
+
+        @statusBar.build @getPanes()
         unless pane? and @activePane? and @statusBar.activeRadio?
-          @statusBar.build @getPanes()
           return
 
         pane = @getPaneElement pane
@@ -57,6 +58,10 @@ module.exports =
 
     @subscription.add atom.workspace.onDidDestroyPane =>
       @activeNumber = -1
+
+      {panes} = @getPanes()
+      if panes.length < 2
+        @reset()
 
     @subscription.add atom.workspace.onDidChangeActivePane (pane) =>
       setTimeout =>
